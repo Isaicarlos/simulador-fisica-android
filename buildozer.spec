@@ -1,1 +1,39 @@
+name: Compilar APK Android
 
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Instalar dependencias y Buildozer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq git zip unzip libtool autoconf automake pkg-config zlib1g-dev libncurses6 libffi-dev libssl-dev lld cmake ninja-build
+          pip install --upgrade "cython<3.0" "buildozer" "python-for-android"
+
+      - name: Compilar APK con Buildozer
+        run: |
+          CI=true BATCH=1 yes | buildozer -v android debug
+
+      - name: Guardar APK generado
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulador-fisica-apk
+          path: bin/*.apk
