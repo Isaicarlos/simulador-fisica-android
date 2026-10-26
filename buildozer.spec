@@ -1,4 +1,3 @@
-```ini
 [app]
 title = SimuladorFisica
 package.name = simuladorfisica
