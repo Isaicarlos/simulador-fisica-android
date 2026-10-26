@@ -1,39 +1,20 @@
-name: Compilar APK Android
+```ini
+[app]
+title = SimuladorFisica
+package.name = simuladorfisica
+package.domain = org.fisica
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
+requirements = python3,kivy
+version = 0.1
 
-on:
-  workflow_dispatch:
+android.api = 33
+android.minapi = 24
+android.ndk = 25b
+android.accept_sdk_license = True
+android.archs = arm64-v8a
+android.copy_libs = 1
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Configurar Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Instalar dependencias y Buildozer
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq git zip unzip libtool autoconf automake pkg-config zlib1g-dev libncurses6 libffi-dev libssl-dev lld cmake ninja-build
-          pip install --upgrade "cython<3.0" "buildozer" "python-for-android"
-
-      - name: Compilar APK con Buildozer
-        run: |
-          CI=true BATCH=1 yes | buildozer -v android debug
-
-      - name: Guardar APK generado
-        uses: actions/upload-artifact@v4
-        with:
-          name: simulador-fisica-apk
-          path: bin/*.apk
+[buildozer]
+log_level = 2
+warn_on_root = 0
