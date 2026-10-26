@@ -1,0 +1,11 @@
+name: Saludo de prueba
+
+on:
+  workflow_dispatch: # Se ejecuta manualmente con un botón
+
+jobs:
+  hola-mundo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Imprimir mensaje
+        run: echo "¡Hola! Tu servidor de GitHub está funcionando correctamente."
