@@ -1,1 +1,12 @@
+name: Saludo de prueba
 
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  saludar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Imprimir mensaje en consola
+        run: echo "¡Hola! El servidor de GitHub Actions funciona correctamente."
