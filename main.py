@@ -1,4 +1,4 @@
-# Versión 1.1: Simulador con parámetros iniciales
+# Versión 1.1: Simulador con parámetros iniciales de mru
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
